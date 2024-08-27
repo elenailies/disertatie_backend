@@ -17,7 +17,7 @@ public class Question implements Serializable {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user; // The user who asked the question
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
