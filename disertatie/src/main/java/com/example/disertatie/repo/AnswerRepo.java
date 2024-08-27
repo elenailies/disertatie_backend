@@ -13,6 +13,5 @@ public interface AnswerRepo extends JpaRepository<Answer, Long> {
     void deleteAnswerById(Long id);
 
     Optional<Answer> findAnswerById(Long id);
-    List<Answer> findByQuestionId(Long questionId);
 
 }

@@ -1,5 +1,6 @@
 package com.example.disertatie.service;
 
+import com.example.disertatie.exception.UserNotFoundException;
 import com.example.disertatie.model.Answer;
 import com.example.disertatie.repo.AnswerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +11,34 @@ import java.util.List;
 @Service
 public class AnswerService {
 
-    private final AnswerRepo answerRepository;
+    private final AnswerRepo answerRepo;
 
     @Autowired
-    public AnswerService(AnswerRepo answerRepository) {
-        this.answerRepository = answerRepository;
+    public AnswerService(AnswerRepo answerRepo) {
+        this.answerRepo = answerRepo;
+    }
+
+    public Answer addAnswer(Answer answer){
+        //answer.setName(UUID.randomUUID().toString());
+        return answerRepo.save(answer);
     }
 
     public List<Answer> findAllAnswers() {
-        return answerRepository.findAll();
+        return answerRepo.findAll();
     }
 
-    public Answer findAnswerById(Long id) {
-        return answerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Answer not found for id: " + id));
+    public Answer updateAnswer(Answer answer){
+        return answerRepo.save(answer);
     }
 
-    public List<Answer> findAnswersByQuestionId(Long questionId) {
-        return answerRepository.findByQuestionId(questionId);
+    public Answer findAnswerById(Long id){
+        return answerRepo.findAnswerById(id)
+                .orElseThrow(() -> new UserNotFoundException("Answer by id " + id + " was not found"));
     }
 
-    public Answer addAnswer(Answer answer) {
-        return answerRepository.save(answer);
+    public void deleteAnswer(Long id){
+        answerRepo.deleteAnswerById(id);
+
     }
 
-    public Answer updateAnswer(Answer answer) {
-        return answerRepository.save(answer);
-    }
-
-    public void deleteAnswer(Long id) {
-        answerRepository.deleteById(id);
-    }
 }
