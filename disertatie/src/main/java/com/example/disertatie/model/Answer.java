@@ -14,11 +14,11 @@ public class Answer implements Serializable {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user; // The user who provided the answer
 
     @ManyToOne
-    @JoinColumn(name = "question_id", nullable = false)
+    @JoinColumn(name = "question_id", nullable = true)
     private Question question; // The question being answered
 
     public Answer() {}
