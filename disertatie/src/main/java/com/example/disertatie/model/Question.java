@@ -20,8 +20,8 @@ public class Question implements Serializable {
     @JoinColumn(name = "user_id")
     private User user; // The user who asked the question
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<Answer> answers;
+    //@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    //private Set<Answer> answers;
 
     public Question() {}
 
@@ -59,12 +59,12 @@ public class Question implements Serializable {
         this.user = user;
     }
 
-    public Set<Answer> getAnswers() {
-        return answers;
-    }
-    public void setAnswers(Set<Answer> answers) {
-        this.answers = answers;
-    }
+    //public Set<Answer> getAnswers() {
+        //return answers;
+    //}
+   // public void setAnswers(Set<Answer> answers) {
+       // this.answers = answers;
+    //}
 
     @Override
     public String toString() {
