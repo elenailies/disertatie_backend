@@ -89,8 +89,8 @@ public class Trip implements Serializable {
         this.nrTickets = nrTickets;
     }
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    private Set<UserTripDetails> userTripDetails;
+    //@OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    //private Set<UserTripDetails> userTripDetails;
 
     @Override
     public String toString() {
