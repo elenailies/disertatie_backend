@@ -2,9 +2,10 @@ package com.example.disertatie.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
-public class UserTripDetails implements Serializable {
+public class Booking implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +19,25 @@ public class UserTripDetails implements Serializable {
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
-    // Additional fields, if needed (e.g., booking date, status)
     private String bookingDate;
 
-    public UserTripDetails() {}
+    private int nrTickets;  // Number of tickets
 
-    public UserTripDetails(User user, Trip trip, String bookingDate) {
+    @Column(precision = 10, scale = 2)
+    private BigDecimal totalCost;  // Total cost of the booking
+
+    public Booking() {}
+
+    // Updated constructor to include nrTickets and totalCost
+    public Booking(User user, Trip trip, String bookingDate, int nrTickets, BigDecimal totalCost) {
         this.user = user;
         this.trip = trip;
         this.bookingDate = bookingDate;
+        this.nrTickets = nrTickets;
+        this.totalCost = totalCost;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -61,13 +71,31 @@ public class UserTripDetails implements Serializable {
         this.bookingDate = bookingDate;
     }
 
+    public int getNrTickets() {
+        return nrTickets;
+    }
+
+    public void setNrTickets(int nrTickets) {
+        this.nrTickets = nrTickets;
+    }
+
+    public BigDecimal getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override
     public String toString() {
-        return "UserTripDetails{" +
+        return "Booking{" +
                 "id=" + id +
                 ", user=" + user.getUsername() +
                 ", trip=" + trip.getName() +
                 ", bookingDate='" + bookingDate + '\'' +
+                ", nrTickets=" + nrTickets +
+                ", totalCost=" + totalCost +
                 '}';
     }
 }

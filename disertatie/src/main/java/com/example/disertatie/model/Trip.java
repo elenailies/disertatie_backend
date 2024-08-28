@@ -3,7 +3,6 @@ package com.example.disertatie.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -18,15 +17,18 @@ public class Trip implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal ticketPrice;
     private String date;
+    private Integer nrTickets; // New field added
 
     public Trip() {}
 
-    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date) {
+    // Updated constructor to include nrTickets
+    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date, Integer nrTickets) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.ticketPrice = ticketPrice;
         this.date = date;
+        this.nrTickets = nrTickets;
     }
 
     // Getters and Setters
@@ -79,6 +81,14 @@ public class Trip implements Serializable {
         this.date = date;
     }
 
+    public Integer getNrTickets() { // New getter
+        return nrTickets;
+    }
+
+    public void setNrTickets(Integer nrTickets) { // New setter
+        this.nrTickets = nrTickets;
+    }
+
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private Set<UserTripDetails> userTripDetails;
 
@@ -91,6 +101,7 @@ public class Trip implements Serializable {
                 ", endTime=" + endTime +
                 ", ticketPrice=" + ticketPrice +
                 ", date=" + date +
+                ", nrTickets=" + nrTickets +  // Updated toString method
                 '}';
     }
 }
