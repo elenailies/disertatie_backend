@@ -87,8 +87,8 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserTripDetails> userTripDetails;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private Set<Booking> bookings;
 
     public String toString()
     {
