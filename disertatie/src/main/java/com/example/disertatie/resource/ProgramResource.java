@@ -2,53 +2,51 @@ package com.example.disertatie.resource;
 
 import com.example.disertatie.model.Program;
 import com.example.disertatie.service.ProgramService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/programs")
+@RequestMapping("/program")
 public class ProgramResource {
 
-    @Autowired
-    private ProgramService programService;
+    private final ProgramService programService;
 
-    @GetMapping
-    public List<Program> getAllPrograms() {
-        return programService.getAllPrograms();
+    public ProgramResource(ProgramService programService) {
+        this.programService = programService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Program> getProgramById(@PathVariable Long id) {
-        Optional<Program> program = programService.getProgramById(id);
-        return program.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @GetMapping("/all")
+    public ResponseEntity<List<Program>> getAllPrograms (){
+        List <Program> programs = programService.findAllPrograms();
+        return new ResponseEntity<>(programs, HttpStatus.OK);
     }
 
-    @PostMapping
-    public Program createProgram(@RequestBody Program program) {
-        return programService.saveProgram(program);
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Program> getProgramById (@PathVariable("id") Long id){
+        Program program = programService.findProgramById(id);
+        return new ResponseEntity<>(program, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Program> updateProgram(@PathVariable Long id, @RequestBody Program program) {
-        if (programService.getProgramById(id).isPresent()) {
-            program.setId(id);
-            return ResponseEntity.ok(programService.saveProgram(program));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/add")
+    public ResponseEntity<Program> addProgram(@RequestBody Program program){
+        Program newProgram = programService.addProgram(program);
+        return new ResponseEntity<>(newProgram, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProgram(@PathVariable Long id) {
-        if (programService.getProgramById(id).isPresent()) {
-            programService.deleteProgram(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/update")
+    public ResponseEntity<Program> updateProgram(@RequestBody Program program){
+        Program updateProgram = programService.updateProgram(program);
+        return new ResponseEntity<>(updateProgram, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteProgram(@PathVariable("id") Long id){
+        programService.deleteProgram(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

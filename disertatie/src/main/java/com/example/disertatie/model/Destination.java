@@ -17,8 +17,8 @@ public class Destination implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Program> programs;
+    //@OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private Set<Program> programs;
 
     public Destination() {}
 
@@ -61,13 +61,13 @@ public class Destination implements Serializable {
         this.category = category;
     }
 
-    public Set<Program> getPrograms() {
-        return programs;
-    }
+    //public Set<Program> getPrograms() {
+        //return programs;
+    //}
 
-    public void setPrograms(Set<Program> programs) {
-        this.programs = programs;
-    }
+    //public void setPrograms(Set<Program> programs) {
+       // this.programs = programs;
+    //}
 
     @Override
     public String toString() {

@@ -1,32 +1,44 @@
 package com.example.disertatie.service;
 
+import com.example.disertatie.exception.UserNotFoundException;
 import com.example.disertatie.model.Program;
 import com.example.disertatie.repo.ProgramRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProgramService {
 
+    private final ProgramRepo programRepo;
+
     @Autowired
-    private ProgramRepo programRepository;
-
-    public List<Program> getAllPrograms() {
-        return programRepository.findAll();
+    public ProgramService(ProgramRepo programRepo) {
+        this.programRepo = programRepo;
     }
 
-    public Optional<Program> getProgramById(Long id) {
-        return programRepository.findById(id);
+    public Program addProgram(Program program){
+        //program.setName(UUID.randomUUID().toString());
+        return programRepo.save(program);
     }
 
-    public Program saveProgram(Program program) {
-        return programRepository.save(program);
+    public List<Program> findAllPrograms() {
+        return programRepo.findAll();
     }
 
-    public void deleteProgram(Long id) {
-        programRepository.deleteById(id);
+    public Program updateProgram(Program program){
+        return programRepo.save(program);
     }
+
+    public Program findProgramById(Long id){
+        return programRepo.findProgramById(id)
+                .orElseThrow(() -> new UserNotFoundException("Program by id " + id + " was not found"));
+    }
+
+    public void deleteProgram(Long id){
+        programRepo.deleteProgramById(id);
+
+    }
+
 }
