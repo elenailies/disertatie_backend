@@ -1,10 +1,7 @@
 package com.example.disertatie.model;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User implements Serializable {
@@ -18,6 +15,7 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String role;
+    private String menuRole;
 
     public Long getId() {
         return id;
@@ -28,7 +26,7 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String username, String password, String email, String role, String name, String surname, String phone){
+    public User(String username, String password, String email, String role, String name, String surname, String phone, String menuRole){
         this.username = username;
         this.password = password;
         this.email = email;
@@ -36,6 +34,7 @@ public class User implements Serializable {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
+        this.menuRole = menuRole;
     }
 
     public String getUsername() {
@@ -80,6 +79,13 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getMenuRole() {
+        return menuRole;
+    }
+    public void setMenuRole(String menuRole) {
+        this.menuRole = menuRole;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -87,12 +93,18 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private Set<Booking> bookings;
-
-    public String toString()
-    {
-        return "UserTripDetailsService{" + "id = " + id + " username = " + username + " email = " + email + " password = " + password + " role = " + role + '}';
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", menuRole='" + menuRole + '\'' +
+                '}';
     }
-
 }

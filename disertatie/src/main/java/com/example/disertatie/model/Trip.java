@@ -17,18 +17,20 @@ public class Trip implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal ticketPrice;
     private String date;
-    private Integer nrTickets; // New field added
+    private Integer nrTickets;
+    private String map; // New field added
 
     public Trip() {}
 
-    // Updated constructor to include nrTickets
-    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date, Integer nrTickets) {
+    // Updated constructor to include nrTickets and map
+    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date, Integer nrTickets, String map) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.ticketPrice = ticketPrice;
         this.date = date;
         this.nrTickets = nrTickets;
+        this.map = map;
     }
 
     // Getters and Setters
@@ -81,12 +83,20 @@ public class Trip implements Serializable {
         this.date = date;
     }
 
-    public Integer getNrTickets() { // New getter
+    public Integer getNrTickets() {
         return nrTickets;
     }
 
-    public void setNrTickets(Integer nrTickets) { // New setter
+    public void setNrTickets(Integer nrTickets) {
         this.nrTickets = nrTickets;
+    }
+
+    public String getMap() { // New getter
+        return map;
+    }
+
+    public void setMap(String map) { // New setter
+        this.map = map;
     }
 
     //@OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
@@ -101,7 +111,8 @@ public class Trip implements Serializable {
                 ", endTime=" + endTime +
                 ", ticketPrice=" + ticketPrice +
                 ", date=" + date +
-                ", nrTickets=" + nrTickets +  // Updated toString method
+                ", nrTickets=" + nrTickets +
+                ", map='" + map + '\'' +  // Updated toString method
                 '}';
     }
 }
