@@ -12,19 +12,21 @@ public class Destination implements Serializable {
 
     private String name;
     private String address;
+    private String map;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    //@OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private Set<Program> programs;
+    // @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private Set<Program> programs;
 
     public Destination() {}
 
-    public Destination(String name, String address) {
+    public Destination(String name, String address, String map) { // Modified constructor
         this.name = name;
         this.address = address;
+        this.map = map;
     }
 
     // Getters and Setters
@@ -53,6 +55,14 @@ public class Destination implements Serializable {
         this.address = address;
     }
 
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -61,16 +71,21 @@ public class Destination implements Serializable {
         this.category = category;
     }
 
-    //public Set<Program> getPrograms() {
-        //return programs;
-    //}
+    // public Set<Program> getPrograms() {
+    //     return programs;
+    // }
 
-    //public void setPrograms(Set<Program> programs) {
-       // this.programs = programs;
-    //}
+    // public void setPrograms(Set<Program> programs) {
+    //     this.programs = programs;
+    // }
 
     @Override
     public String toString() {
-        return "Destination{" + "id=" + id + ", name='" + name + '\'' + ", address='" + address + '\'' + '}';
+        return "Destination{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", map='" + map + '\'' + // Included map in toString
+                '}';
     }
 }
