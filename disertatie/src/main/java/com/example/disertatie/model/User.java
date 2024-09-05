@@ -1,16 +1,14 @@
 package com.example.disertatie.model;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
     private String name;
     private String surname;
@@ -19,16 +17,13 @@ public class User implements Serializable {
     private String email;
     private String role;
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private boolean enabled; // New field added
 
+    // Default constructor
     public User(){}
 
-    public User(String username, String password, String email, String role, String name, String surname, String phone){
+    // Constructor with all fields
+    public User(String username, String password, String email, String role, String name, String surname, String phone, boolean enabled){
         this.username = username;
         this.password = password;
         this.email = email;
@@ -36,6 +31,15 @@ public class User implements Serializable {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
+        this.enabled = enabled; // Initialize the new field
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -87,12 +91,22 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    //private Set<Booking> bookings;
-
-    public String toString()
-    {
-        return "UserTripDetailsService{" + "id = " + id + " username = " + username + " email = " + email + " password = " + password + " role = " + role + '}';
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", enabled=" + enabled +  // Include the new field in the toString method
+                '}';
+    }
 }

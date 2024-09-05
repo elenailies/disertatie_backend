@@ -1,5 +1,6 @@
 package com.example.disertatie.resource;
 
+import com.example.disertatie.model.EmailRequest;
 import com.example.disertatie.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,10 +22,11 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/send")
-    public String sendEmail() {
-        emailService.sendSimpleMessage("elenailies09@gmail.com", "Test Subject", "Test email body");
-        return "Email sent!";
+    @PostMapping("/send")
+    public ResponseEntity<String> sendEmail(@RequestBody EmailRequest emailRequest) {
+        emailService.sendSimpleMessage(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getText());
+        return ResponseEntity.ok("Email sent!");
     }
 }
+
 
