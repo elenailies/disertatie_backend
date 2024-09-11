@@ -3,7 +3,6 @@ package com.example.disertatie.model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 public class Trip implements Serializable {
@@ -18,12 +17,17 @@ public class Trip implements Serializable {
     private BigDecimal ticketPrice;
     private String date;
     private Integer nrTickets;
-    private String map; // New field added
+    private String map; // Existing field
 
-    public Trip() {}
+    @Column(nullable = false)
+    private boolean enabled; // New boolean field
 
-    // Updated constructor to include nrTickets and map
-    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date, Integer nrTickets, String map) {
+    public Trip() {
+        this.enabled = true; // Initialize the default value
+    }
+
+    // Updated constructor to include nrTickets, map, and enabled
+    public Trip(String name, String startTime, String endTime, BigDecimal ticketPrice, String date, Integer nrTickets, String map, boolean enabled) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -31,6 +35,7 @@ public class Trip implements Serializable {
         this.date = date;
         this.nrTickets = nrTickets;
         this.map = map;
+        this.enabled = enabled;
     }
 
     // Getters and Setters
@@ -91,12 +96,20 @@ public class Trip implements Serializable {
         this.nrTickets = nrTickets;
     }
 
-    public String getMap() { // New getter
+    public String getMap() {
         return map;
     }
 
-    public void setMap(String map) { // New setter
+    public void setMap(String map) {
         this.map = map;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     //@OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
@@ -107,12 +120,13 @@ public class Trip implements Serializable {
         return "Trip{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 ", ticketPrice=" + ticketPrice +
-                ", date=" + date +
+                ", date='" + date + '\'' +
                 ", nrTickets=" + nrTickets +
-                ", map='" + map + '\'' +  // Updated toString method
+                ", map='" + map + '\'' +
+                ", enabled=" + enabled + // Updated toString method
                 '}';
     }
 }
