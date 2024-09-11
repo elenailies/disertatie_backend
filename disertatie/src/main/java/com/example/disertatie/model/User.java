@@ -16,14 +16,15 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String role;
+    private String menuRole; // New field added for menu role
 
-    private boolean enabled; // New field added
+    private boolean enabled; // New field added earlier
 
     // Default constructor
     public User(){}
 
-    // Constructor with all fields
-    public User(String username, String password, String email, String role, String name, String surname, String phone, boolean enabled){
+    // Constructor with all fields, including menuRole
+    public User(String username, String password, String email, String role, String name, String surname, String phone, boolean enabled, String menuRole){
         this.username = username;
         this.password = password;
         this.email = email;
@@ -32,6 +33,7 @@ public class User implements Serializable {
         this.surname = surname;
         this.phone = phone;
         this.enabled = enabled; // Initialize the new field
+        this.menuRole = menuRole; // Initialize menuRole
     }
 
     // Getters and Setters
@@ -98,6 +100,13 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getMenuRole() {
+        return menuRole;
+    }
+    public void setMenuRole(String menuRole) {
+        this.menuRole = menuRole;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -106,7 +115,8 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", enabled=" + enabled +  // Include the new field in the toString method
+                ", menuRole='" + menuRole + '\'' +  // Include menuRole in toString
+                ", enabled=" + enabled +
                 '}';
     }
 }
